@@ -1,0 +1,47 @@
+{
+  "name": "@theo/ctx-cli",
+  "version": "1.0.0",
+  "description": "CLI for Context7 — get up-to-date, version-specific library docs from your terminal",
+  "type": "module",
+  "bin": {
+    "ctx": "bin/ctx.js"
+  },
+  "keywords": [
+    "context7",
+    "documentation",
+    "cli",
+    "mcp",
+    "ai",
+    "coding",
+    "docs",
+    "library",
+    "api",
+    "llm",
+    "developer-tools",
+    "terminal",
+    "cursor",
+    "claude",
+    "pipe",
+    "api-reference",
+    "code-examples",
+    "ai-coding",
+    "devtools",
+    "no-dependencies"
+  ],
+  "homepage": "https://github.com/TheophilusChinomona/ctx-cli",
+  "bugs": {
+    "url": "https://github.com/TheophilusChinomona/ctx-cli/issues"
+  },
+  "scripts": {
+    "test": "node --test test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheophilusChinomona/ctx-cli.git"
+  },
+  "author": "Theo",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
