@@ -4,70 +4,59 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ctx — Library docs in your terminal</title>
-  <meta name="description" content="Get up-to-date, version-specific library docs from your terminal. Pipe into AI agents, scripts, or just look stuff up. Zero dependencies, zero config.">
-  <meta name="keywords" content="context7, cli, documentation, api reference, code examples, llm, ai coding, cursor, claude, mcp, developer tools, react docs, nextjs docs, library docs terminal">
-  <meta name="author" content="Theo">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://theophiluschinomona.github.io/ctx-cli">
-  <meta property="og:title" content="ctx — Library Docs in Your Terminal">
-  <meta property="og:description" content="Get up-to-date, version-specific library docs from your terminal. Pipe into AI coding agents. No MCP client needed.">
+  <meta name="description" content="Get up-to-date, version-specific library docs from your terminal. Pipe into AI agents, scripts, or just look stuff up. Zero deps.">
+  <meta property="og:title" content="ctx — Library docs in your terminal">
+  <meta property="og:description" content="Up-to-date, version-specific library docs piped straight to stdout. Feed them into LLMs, scripts, or just grep through them.">
   <meta property="og:url" content="https://theophiluschinomona.github.io/ctx-cli">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="ctx — Library Docs in Your Terminal">
-  <meta property="og:image" content="https://opengraph.githubassets.com/1/TheophilusChinomona/ctx-cli">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="ctx — Library Docs in Your Terminal">
+  <meta name="twitter:title" content="ctx — Library docs in your terminal">
   <meta name="twitter:description" content="Up-to-date library docs from your terminal. Pipe into agents, scripts, or just look stuff up.">
-  <meta name="twitter:image" content="https://opengraph.githubassets.com/1/TheophilusChinomona/ctx-cli">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "ctx — Context7 CLI",
-    "description": "Get up-to-date, version-specific library docs from your terminal.",
-    "url": "https://theophiluschinomona.github.io/ctx-cli",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "macOS, Linux, Windows",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "author": { "@type": "Person", "name": "Theo" },
-    "softwareRequirements": "Node.js >= 18",
-    "downloadUrl": "https://www.npmjs.com/package/@theo-chinomona/ctx-cli",
-    "codeRepository": "https://github.com/TheophilusChinomona/ctx-cli"
-  }
-  </script>
+  <link rel="canonical" href="https://theophiluschinomona.github.io/ctx-cli">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"ctx — Context7 CLI","description":"Get up-to-date, version-specific library docs from your terminal.","url":"https://theophiluschinomona.github.io/ctx-cli","applicationCategory":"DeveloperApplication","operatingSystem":"macOS, Linux, Windows","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Theo"},"softwareRequirements":"Node.js >= 18","downloadUrl":"https://www.npmjs.com/package/@theo-chinomona/ctx-cli","codeRepository":"https://github.com/TheophilusChinomona/ctx-cli"}</script>
   <style>
     :root {
       --bg: #09090b;
       --surface: #18181b;
       --surface-hover: #27272a;
       --border: #27272a;
+      --border-hover: #3f3f46;
       --text: #fafafa;
       --text-secondary: #a1a1aa;
       --muted: #71717a;
       --accent: #22c55e;
       --accent-dim: #16a34a;
-      --code-bg: #1a1a1e;
+      --accent-subtle: rgba(34, 197, 94, 0.08);
+      --accent-border: rgba(34, 197, 94, 0.2);
+      --code-bg: #141416;
+      --red: #ef4444;
+      --yellow: #eab308;
       --radius: 12px;
+      --radius-sm: 8px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
 
-    .container { max-width: 768px; margin: 0 auto; padding: 0 24px; }
+    .container { max-width: 1024px; margin: 0 auto; padding: 0 32px; }
+    @media (min-width: 1400px) { .container { max-width: 1200px; } }
 
     nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 20px 24px;
-      max-width: 816px;
+      max-width: 1088px;
       margin: 0 auto;
     }
 
@@ -76,9 +65,7 @@
       font-size: 18px;
       letter-spacing: -0.02em;
     }
-
     nav .logo span { color: var(--accent); }
-
     nav .links { display: flex; gap: 20px; align-items: center; }
     nav .links a {
       color: var(--text-secondary);
@@ -99,14 +86,16 @@
       align-items: center;
       gap: 6px;
       padding: 6px 14px;
-      background: rgba(34, 197, 94, 0.08);
-      border: 1px solid rgba(34, 197, 94, 0.15);
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent-border);
       border-radius: 999px;
       font-size: 13px;
       font-weight: 500;
       color: var(--accent);
       margin-bottom: 24px;
     }
+
+    .hero-badge svg { width: 14px; height: 14px; }
 
     h1 {
       font-size: clamp(2.8rem, 7vw, 4.5rem);
@@ -115,13 +104,12 @@
       line-height: 1.05;
       margin-bottom: 20px;
     }
-
     h1 .accent { color: var(--accent); }
 
     .subtitle {
       font-size: 1.15rem;
       color: var(--text-secondary);
-      max-width: 520px;
+      max-width: 580px;
       margin: 0 auto 36px;
     }
 
@@ -133,26 +121,27 @@
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 12px 20px;
-      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
       font-size: 0.95rem;
       cursor: pointer;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
     }
-    .install-box:hover { border-color: var(--accent); }
-    .install-box .prompt { color: var(--accent); user-select: none; }
+    .install-box:hover { border-color: var(--accent); background: var(--surface); }
+    .install-box:active { transform: scale(0.98); }
+    .install-box .prompt { color: var(--accent); }
     .install-box .cmd { color: var(--text); }
 
-    .stats {
+    .stats-row {
       display: flex;
       justify-content: center;
-      gap: 40px;
-      padding: 24px 0 56px;
+      gap: 32px;
+      padding: 24px 0 48px;
       flex-wrap: wrap;
     }
-
-    .stat { text-align: center; }
+    .stat-item { text-align: center; }
     .stat-value {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
       letter-spacing: -0.03em;
       color: var(--accent);
@@ -165,7 +154,7 @@
       border-radius: var(--radius);
       overflow: hidden;
       margin: 48px auto;
-      box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 4px 48px rgba(0,0,0,0.5);
     }
 
     .terminal-bar {
@@ -173,146 +162,292 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 16px;
-      background: #1e1e22;
+      background: #1a1a1e;
       border-bottom: 1px solid var(--border);
     }
-
     .terminal-dots { display: flex; gap: 8px; }
     .terminal-dot {
       width: 10px; height: 10px;
       border-radius: 50%;
-      background: var(--border);
     }
-    .terminal-dot:nth-child(1) { background: #ef4444; }
-    .terminal-dot:nth-child(2) { background: #eab308; }
-    .terminal-dot:nth-child(3) { background: #22c55e; }
-    .terminal-title { font-size: 12px; color: var(--muted); }
+    .terminal-dot:nth-child(1) { background: var(--red); }
+    .terminal-dot:nth-child(2) { background: var(--yellow); }
+    .terminal-dot:nth-child(3) { background: var(--accent); }
+    .terminal-title { font-size: 12px; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
 
     .terminal-body {
       padding: 20px 24px;
-      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
-      font-size: 13.5px;
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      font-size: 13px;
       line-height: 1.8;
       overflow-x: auto;
     }
-
     .terminal-body .prompt { color: var(--accent); }
     .terminal-body .arrow { color: var(--muted); }
     .terminal-body .output { color: var(--text-secondary); }
+    .terminal-body .hl { color: #fbbf24; }
+    .terminal-body .green { color: var(--accent); }
 
     .section {
-      padding: 64px 0;
+      padding: 60px 0;
     }
 
     .section-header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
-
     .section-header h2 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 700;
       letter-spacing: -0.03em;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
-
-    .section-header p {
-      color: var(--text-secondary);
-      font-size: 1.05rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
+    .section-header p { color: var(--text-secondary); font-size: 1rem; }
 
     .grid-3 {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 16px;
     }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
 
     @media (max-width: 640px) {
-      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px;
+      padding: 24px;
       transition: border-color 0.15s;
     }
+    .card:hover { border-color: var(--border-hover); }
+    .card-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .card code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      color: var(--accent);
+      background: var(--accent-subtle);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
 
-    .card:hover { border-color: rgba(34, 197, 94, 0.2); }
-    .card-icon { font-size: 28px; margin-bottom: 14px; }
-    .card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
-    .card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      vertical-align: middle;
+      margin-left: 4px;
+    }
 
     .code-block {
       background: var(--code-bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 24px;
-      font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-family: 'JetBrains Mono', 'SF Mono', monospace;
       font-size: 13px;
       line-height: 1.9;
       overflow-x: auto;
-      margin-bottom: 16px;
     }
-
     .code-block .comment { color: #6b7280; }
     .code-block .cmd { color: var(--text); }
-    .code-block .pipe { color: var(--accent); }
+    .code-block .pipe { color: var(--accent); font-weight: 600; }
     .code-block .string { color: #fbbf24; }
-    .code-block .highlight { color: #22c55e; }
 
     .split-panel {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
-      align-items: center;
+      align-items: start;
     }
-
     @media (max-width: 640px) { .split-panel { grid-template-columns: 1fr; } }
 
-    .stats-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
+    .panel-label {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 12px;
     }
 
-    .stats-row:last-child { border-bottom: none; }
-    .stats-row .vs { font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; }
-    .stats-row .mcp { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
-    .stats-row .cli { background: rgba(34, 197, 94, 0.1); color: var(--accent); }
-    .stats-row .label { color: var(--text-secondary); font-size: 14px; flex: 1; }
-    .stats-row .value { font-weight: 600; font-size: 14px; }
+    .compare-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+    }
+
+    .compare-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-row:last-child { border-bottom: none; }
+
+    .compare-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .compare-tag.cli { background: var(--accent-subtle); color: var(--accent); }
+    .compare-tag.mcp { background: rgba(239, 68, 68, 0.1); color: var(--red); }
+
+    .compare-label { color: var(--text-secondary); font-size: 14px; flex: 1; }
+    .compare-value { font-weight: 600; font-size: 14px; text-align: right; }
+    .compare-value.good { color: var(--accent); }
+    .compare-value.bad { color: var(--red); }
+
+    .footnote {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .footnote strong { color: var(--text); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 640px) { .skills-grid { grid-template-columns: 1fr; } }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: border-color 0.15s;
+    }
+    .skill-card:hover { border-color: var(--border-hover); }
+    .skill-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--accent-subtle);
+      border: 1px solid var(--accent-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .skill-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .skill-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .roadmap-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .roadmap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.15s;
+    }
+    .roadmap-item + .roadmap-item { margin-top: -1px; border-radius: 0; }
+    .roadmap-item:first-of-type { border-radius: var(--radius) var(--radius) 0 0; }
+    .roadmap-item:last-of-type { border-radius: 0 0 var(--radius) var(--radius); }
+    .roadmap-item:hover { border-color: var(--border-hover); }
+    .roadmap-status {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .roadmap-status.now { background: var(--accent-subtle); color: var(--accent); }
+    .roadmap-status.next { background: rgba(250, 204, 21, 0.1); color: #eab308; }
+    .roadmap-status.future { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+    .roadmap-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .roadmap-item p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
 
     .cta {
       text-align: center;
       padding: 80px 0 60px;
     }
-
     .cta h2 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 700;
       letter-spacing: -0.03em;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
-
     .cta p {
       color: var(--text-secondary);
       margin-bottom: 28px;
     }
-
     .cta-buttons {
       display: flex;
       gap: 12px;
       justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
     }
 
@@ -321,25 +456,23 @@
       align-items: center;
       gap: 8px;
       padding: 12px 28px;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       font-size: 0.95rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.15s;
     }
-
     .btn-primary {
       background: var(--accent);
       color: #000;
     }
-    .btn-primary:hover { background: #4ade80; transform: translateY(-1px); }
-
+    .btn-primary:hover { background: #4ade80; }
     .btn-secondary {
       background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
     }
-    .btn-secondary:hover { border-color: var(--text-secondary); transform: translateY(-1px); }
+    .btn-secondary:hover { border-color: var(--text-secondary); }
 
     footer {
       border-top: 1px solid var(--border);
@@ -348,22 +481,11 @@
       color: var(--muted);
       font-size: 0.85rem;
     }
-
     footer a { color: var(--accent); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .badge-new {
-      background: rgba(34, 197, 94, 0.15);
-      color: var(--accent);
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
@@ -380,39 +502,43 @@
 <div class="container">
   <section class="hero">
     <div class="hero-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
-      Zero dependencies &middot; Zero MCP overhead
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+      Zero dependencies &middot; No MCP overhead
     </div>
     <h1>Library docs in<br>your <span class="accent">terminal</span></h1>
-    <p class="subtitle">Up-to-date, version-specific docs piped straight to stdout. Feed them into LLMs, scripts, or just look stuff up.</p>
-    <div class="install-box" onclick="copyInstall(this)">
+    <p class="subtitle">Up-to-date API references and code examples from Context7. Pipe into LLMs, scripts, or just grep through them.</p>
+    <div class="install-box" role="button" tabindex="0" aria-label="Copy install command" onclick="copyInstall(this)">
       <span class="prompt">$</span>
-      <span class="cmd">npx @theo-chinomona/ctx-cli</span>
+      <span class="cmd" data-pretext>npx @theo-chinomona/ctx-cli</span>
     </div>
-    <div class="stats">
-      <div class="stat">
+    <div class="stats-row">
+      <div class="stat-item">
         <div class="stat-value">0</div>
         <div class="stat-label">npm dependencies</div>
       </div>
-      <div class="stat">
+      <div class="stat-item">
         <div class="stat-value">2</div>
         <div class="stat-label">API calls per query</div>
       </div>
-      <div class="stat">
+      <div class="stat-item">
         <div class="stat-value">~225</div>
-        <div class="stat-label">tokens of overhead</div>
+        <div class="stat-label">tokens overhead</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">35x</div>
+        <div class="stat-label">less tokens vs MCP</div>
       </div>
     </div>
   </section>
 
-  <div class="terminal-window">
+  <div class="terminal-window" role="region" aria-label="Terminal demo">
     <div class="terminal-bar">
       <div class="terminal-dots">
         <div class="terminal-dot"></div>
         <div class="terminal-dot"></div>
         <div class="terminal-dot"></div>
       </div>
-      <div class="terminal-title">ctx — quick lookup</div>
+      <div class="terminal-title">ctx</div>
       <div></div>
     </div>
     <div class="terminal-body">
@@ -420,18 +546,14 @@
       <div><span class="arrow">→ /websites/react_dev</span></div>
       <br>
       <div><span class="output">### Server Components</span></div>
-      <div><span class="output">Source: https://react.dev/reference/rsc/server-components</span></div>
-      <br>
       <div><span class="output">Server Components are a new type of Component that</span></div>
       <div><span class="output">renders ahead of time, before bundling, using</span></div>
       <div><span class="output">async/await to fetch data directly.</span></div>
       <br>
-      <div><span class="output">```jsx</span></div>
-      <div><span class="output">export default async function Page() {</span></div>
-      <div><span class="output">  const data = await db.query('SELECT ...');</span></div>
-      <div><span class="output">  return &lt;Dashboard data={data} /&gt;</span></div>
+      <div><span class="output"><span class="green">export default</span> <span class="hl">async function</span> Page() {</span></div>
+      <div><span class="output">  const data = await db.query(<span class="string">'SELECT ...'</span>);</span></div>
+      <div><span class="output">  <span class="hl">return</span> &lt;Dashboard data={data} /&gt;;</span></div>
       <div><span class="output">}</span></div>
-      <div><span class="output">```</span></div>
       <br>
       <div><span class="prompt">$</span> ctx prisma "findMany" | grep "include"</div>
       <div><span class="arrow">→ /prisma/prisma-client</span></div>
@@ -440,43 +562,42 @@
     </div>
   </div>
 
-  <section class="section">
+  <section class="section" aria-labelledby="commands-heading">
     <div class="section-header">
-      <h2>Commands</h2>
+      <h2 id="commands-heading">Commands</h2>
       <p>Three ways to get the docs you need</p>
     </div>
     <div class="grid-3">
       <div class="card">
-        <div class="card-icon">🔍</div>
-        <h3><code>ctx resolve</code> <span class="badge badge-new">alias: r</span></h3>
-        <p>Search Context7's index for a library. Returns matching library IDs to use with <code>docs</code>.</p>
+        <div class="card-label">Search</div>
+        <h3>ctx resolve <span class="badge">alias: r</span></h3>
+        <p>Search Context7&rsquo;s index for a library. Returns matching IDs to use with <code>docs</code>.</p>
       </div>
       <div class="card">
-        <div class="card-icon">📄</div>
-        <h3><code>ctx docs</code> <span class="badge badge-new">alias: d</span></h3>
-        <p>Fetch documentation for a library, filtered by topic and token limit. Auto-resolves library names.</p>
+        <div class="card-label">Fetch</div>
+        <h3>ctx docs <span class="badge">alias: d</span></h3>
+        <p>Get docs by name or exact Context7 ID. Auto-resolves library names. Filter by topic and token count.</p>
       </div>
       <div class="card">
-        <div class="card-icon">⚡</div>
-        <h3><code>ctx &lt;lib&gt;</code> <span class="badge badge-new">shorthand</span></h3>
-        <p>Skip the <code>docs</code> command entirely. <code>ctx react hooks</code> just works — shorthand for <code>ctx docs react hooks</code>.</p>
+        <div class="card-label">Shorthand</div>
+        <h3>ctx &lt;lib&gt;</h3>
+        <p>Skip the <code>docs</code> keyword entirely. <code>ctx react hooks</code> just works &mdash; shorthand for <code>ctx docs react hooks</code>.</p>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" aria-labelledby="pipe-heading">
     <div class="section-header">
-      <h2>Use it everywhere</h2>
+      <h2 id="pipe-heading">Pipe it anywhere</h2>
       <p>Plain text to stdout means it composes with everything</p>
     </div>
-
     <div class="split-panel">
       <div>
-        <h3 style="margin-bottom: 12px; font-size: 1.1rem;">🚀 Into AI coding agents</h3>
+        <div class="panel-label">Into AI coding agents</div>
         <div class="code-block">
           <span class="comment"># Feed docs into Claude Code</span><br>
           <span class="cmd">DOCS=$(ctx nextjs "app router" --tokens 8000)</span><br>
-          <span class="cmd">claude "Build middleware using these docs:</span><span class="string">\$DOCS</span><span class="cmd">"</span><br>
+          <span class="cmd">claude "Build middleware using these docs:</span><span class="string">$DOCS</span><span class="cmd">"</span><br>
           <br>
           <span class="comment"># Pipe directly into local models</span><br>
           <span class="cmd">ctx express middleware <span class="pipe">|</span> ollama run codellama "explain"</span><br>
@@ -486,7 +607,7 @@
         </div>
       </div>
       <div>
-        <h3 style="margin-bottom: 12px; font-size: 1.1rem;">🔧 Into Unix pipelines</h3>
+        <div class="panel-label">Into Unix pipelines</div>
         <div class="code-block">
           <span class="comment"># Copy to clipboard</span><br>
           <span class="cmd">ctx react hooks <span class="pipe">|</span> pbcopy</span><br>
@@ -501,103 +622,166 @@
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" aria-labelledby="skills-heading">
     <div class="section-header">
-      <h2>Why CLI instead of MCP?</h2>
-      <p>MCP eats thousands of tokens just for tool definitions. ctx adds zero overhead.</p>
+      <h2 id="skills-heading">Skills</h2>
+      <p>Use ctx as a tool inside AI coding assistants</p>
     </div>
-    <div class="card" style="padding: 32px;">
-      <div class="stats-row">
-        <span class="vs cli">ctx CLI</span>
-        <span class="label">Token overhead</span>
-        <span class="value" style="color: var(--accent);">~225 tokens</span>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">CL</div>
+        <div>
+          <h3>Claude Code agent skill</h3>
+          <p>Register ctx as a custom tool in your CLAUDE.md. Claude Code can invoke <code>ctx react hooks</code> to pull real docs mid-conversation, eliminating hallucinated APIs.</p>
+        </div>
       </div>
-      <div class="stats-row">
-        <span class="vs mcp">MCP</span>
-        <span class="label">GitHub MCP — tool definitions</span>
-        <span class="value" style="color: #ef4444;">~55,000 tokens</span>
+      <div class="skill-card">
+        <div class="skill-icon">CX</div>
+        <div>
+          <h3>Codex CLI integration</h3>
+          <p>Use ctx inside Codex sessions to inject accurate library references. Pipe docs directly into prompts with <code>ctx nextjs "app router" | codex -p "build this"</code>.</p>
+        </div>
       </div>
-      <div class="stats-row">
-        <span class="vs mcp">MCP</span>
-        <span class="label">List 50 Intune devices</span>
-        <span class="value" style="color: #ef4444;">~145,000 tokens</span>
+      <div class="skill-card">
+        <div class="skill-icon">CU</div>
+        <div>
+          <h3>Cursor / MCP bridge</h3>
+          <p>Same Context7 data that powers Cursor&rsquo;s built-in docs, now available from any terminal. Use ctx alongside or instead of the MCP server.</p>
+        </div>
       </div>
-      <div class="stats-row">
-        <span class="vs cli">ctx CLI</span>
-        <span class="label">Same operation via CLI</span>
-        <span class="value" style="color: var(--accent);">~4,150 tokens</span>
-      </div>
-      <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-        <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.7;">
-          <strong style="color: var(--text);">35x token reduction.</strong> 
-          Benchmarks by Jannik Reinhard (Feb 2026). MCP sends protocol metadata — ctx sends docs. 
-          For local models with 4k–8k context windows, that gap is the whole ballgame.
-        </p>
+      <div class="skill-card">
+        <div class="skill-icon">SH</div>
+        <div>
+          <h3>Shell scripting</h3>
+          <p>Incorporate ctx into shell scripts and CI pipelines. Compose with <code>grep</code>, <code>jq</code>, <code>less</code> &mdash; no protocol, just text.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" aria-labelledby="roadmap-heading">
     <div class="section-header">
-      <h2>Features</h2>
+      <h2 id="roadmap-heading">Roadmap</h2>
+    </div>
+    <div class="roadmap-list">
+      <div class="roadmap-item">
+        <div class="roadmap-status now">1</div>
+        <div>
+          <h3>Pluggable Claude Code plugin</h3>
+          <p>First-class extension that adds <code>ctx</code> as a built-in Claude Code tool. Invoke with <code>claude ctx "react hooks"</code> &mdash; no manual piping, auto-injected context. <strong style="color: var(--accent);">In progress</strong></p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-status next">2</div>
+        <div>
+          <h3>OpenAI Codex plugin</h3>
+          <p>Native Codex integration so <code>ctx</code> can be called as a skill directly from Codex CLI sessions. Zero-config setup, same pipe-friendly output.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-status future">3</div>
+        <div>
+          <h3>Multi-agent orchestration</h3>
+          <p>Support for agentic workflows: feed parallel context to multiple agents, cache resolved IDs, and batch-fetch docs for large refactors.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="compare-heading">
+    <div class="section-header">
+      <h2 id="compare-heading">CLI vs MCP</h2>
+      <p>MCP burns thousands of tokens on protocol overhead. ctx sends docs.</p>
+    </div>
+    <div class="compare-card">
+      <div class="compare-row">
+        <span class="compare-tag cli">ctx</span>
+        <span class="compare-label">Token overhead</span>
+        <span class="compare-value good">~225 tokens</span>
+      </div>
+      <div class="compare-row">
+        <span class="compare-tag mcp">MCP</span>
+        <span class="compare-label">GitHub MCP &mdash; tool definitions</span>
+        <span class="compare-value bad">~55,000 tokens</span>
+      </div>
+      <div class="compare-row">
+        <span class="compare-tag mcp">MCP</span>
+        <span class="compare-label">List 50 Intune devices via MCP</span>
+        <span class="compare-value bad">~145,000 tokens</span>
+      </div>
+      <div class="compare-row">
+        <span class="compare-tag cli">ctx</span>
+        <span class="compare-label">Same operation via CLI</span>
+        <span class="compare-value good">~4,150 tokens</span>
+      </div>
+      <div class="footnote">
+        <strong>35x token reduction.</strong> Benchmarks by Jannik Reinhard (Feb&nbsp;2026). MCP sends protocol metadata &mdash; ctx sends docs. For local models with 4k&ndash;8k context windows, that gap is the whole ballgame.
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="features-heading">
+    <div class="section-header">
+      <h2 id="features-heading">Features</h2>
     </div>
     <div class="grid-2">
       <div class="card">
-        <div class="card-icon">⚡</div>
-        <h3>Zero config</h3>
-        <p>One command, no MCP server setup, no editor plugins, no API key required for basic usage. Just <code>npx @theo-chinomona/ctx-cli</code>.</p>
+        <div class="card-label">Zero config</div>
+        <h3>No setup</h3>
+        <p>One command, no MCP server, no editor plugin, no API key for basic usage. Just <code>npx @theo-chinomona/ctx-cli</code> and go.</p>
       </div>
       <div class="card">
-        <div class="card-icon">📦</div>
-        <h3>Zero dependencies</h3>
-        <p>Uses only Node.js built-in <code>fetch</code>. No npm dependencies. No <code>node_modules</code> bloat. The entire install is ~10KB.</p>
+        <div class="card-label">Zero deps</div>
+        <h3>10KB install</h3>
+        <p>Uses only Node.js built-in <code>fetch</code>. No npm dependencies, no node_modules bloat, no build step. Ships as a single file.</p>
       </div>
       <div class="card">
-        <div class="card-icon">📚</div>
+        <div class="card-label">Fresh data</div>
         <h3>Always current</h3>
-        <p>Same indexed docs that power Cursor and Claude Code. Updated directly from library source repos — not stale scrapes.</p>
+        <p>Same indexed docs that power Cursor and Claude Code. Updated from library source repos &mdash; not stale scrapes.</p>
       </div>
       <div class="card">
-        <div class="card-icon">🎯</div>
-        <h3>Token control</h3>
-        <p>Cap output with <code>--tokens &lt;n&gt;</code>. Essential for local models with tight context windows. No "surprise" token consumption.</p>
+        <div class="card-label">Token control</div>
+        <h3>Cap output</h3>
+        <p><code>--tokens &lt;n&gt;</code> caps response size. Essential for local models with 4k&ndash;8k context windows. No surprise token consumption.</p>
       </div>
       <div class="card">
-        <div class="card-icon">🔗</div>
-        <h3>Version-specific</h3>
-        <p>Use exact Context7 IDs like <code>/vercel/next.js</code> or <code>/websites/nextjs_15</code> to pin specific library versions.</p>
+        <div class="card-label">Version pinning</div>
+        <h3>Specific versions</h3>
+        <p>Use exact Context7 IDs like <code>/vercel/next.js</code> or <code>/websites/nextjs_15</code> to target specific library versions.</p>
       </div>
       <div class="card">
-        <div class="card-icon">🤖</div>
-        <h3>Agent-ready</h3>
-        <p>Inject accurate, up-to-date docs into agent prompts. Stop AI coding assistants from hallucinating APIs.</p>
+        <div class="card-label">Agent fuel</div>
+        <h3>Stop hallucinations</h3>
+        <p>Inject accurate, up-to-date docs into agent prompts. AI coding assistants stop guessing APIs when you feed them real docs.</p>
       </div>
     </div>
   </section>
 
   <section class="cta">
     <h2>Try it in 10 seconds</h2>
-    <p>No install required. No config. Just docs.</p>
+    <p>No install. No config. Just library docs.</p>
     <div class="cta-buttons">
-      <a href="https://github.com/TheophilusChinomona/ctx-cli" class="btn btn-primary">
+      <a href="https://github.com/TheophilusChinomona/ctx-cli" class="btn btn-primary" aria-label="View on GitHub">
         <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-        View on GitHub
+        GitHub
       </a>
-      <span class="install-box" onclick="copyInstall(this)" style="cursor: pointer;">
+      <div class="install-box" role="button" tabindex="0" aria-label="Copy install command" onclick="copyInstall(this)">
         <span class="prompt">$</span>
-        <span class="cmd">npx @theo-chinomona/ctx-cli</span>
-      </span>
+        <span class="cmd" data-pretext>npx @theo-chinomona/ctx-cli</span>
+      </div>
     </div>
   </section>
 </div>
 
 <footer>
-  <div class="container">
-    Built by <a href="https://github.com/TheophilusChinomona">Theo</a> &middot; Powered by <a href="https://context7.com">Context7</a> by <a href="https://upstash.com">Upstash</a>
-  </div>
+  Built by <a href="https://github.com/TheophilusChinomona">Theo</a> &middot; Powered by <a href="https://context7.com">Context7</a> by <a href="https://upstash.com">Upstash</a>
 </footer>
 
-<script>
+<script type="module">
+import { prepare, layout } from 'https://esm.sh/@chenglou/pretext'
+<!-- FALLBACK: vendor/pretext.js missing, using CDN -->
+
 function copyInstall(el) {
   const text = 'npx @theo-chinomona/ctx-cli';
   navigator.clipboard.writeText(text);
@@ -605,6 +789,44 @@ function copyInstall(el) {
   el.innerHTML = '<span style="color: #22c55e;">Copied!</span>';
   setTimeout(() => el.innerHTML = original, 2000);
 }
+
+async function initPretext() {
+  await document.fonts.ready;
+  const elements = document.querySelectorAll('[data-pretext]');
+  const prepared = new Map();
+
+  for (const el of elements) {
+    const text = el.textContent;
+    const font = getComputedStyle(el).font;
+    prepared.set(el, prepare(text, font));
+  }
+
+  function relayout() {
+    for (const [el, handle] of prepared) {
+      const w = el.clientWidth;
+      if (!w) continue;
+      const lh = parseFloat(getComputedStyle(el).lineHeight) || 24;
+      const { height } = layout(handle, w, lh);
+      el.style.height = `${height}px`;
+    }
+  }
+
+  const ro = new ResizeObserver(() => relayout());
+  ro.observe(document.body);
+  relayout();
+
+  for (const el of elements) {
+    if (el.contentEditable === 'true') {
+      new MutationObserver(() => {
+        const font = getComputedStyle(el).font;
+        prepared.set(el, prepare(el.textContent, font));
+        relayout();
+      }).observe(el, { characterData: true, subtree: true, childList: true });
+    }
+  }
+}
+
+initPretext();
 </script>
 </body>
 </html>
