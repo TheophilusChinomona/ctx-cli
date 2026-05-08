@@ -1,6 +1,6 @@
 # ctx — Context7 CLI
 
-[![npm version](https://img.shields.io/npm/v/@theo/ctx-cli)](https://www.npmjs.com/package/@theo/ctx-cli) [![npm downloads](https://img.shields.io/npm/dm/@theo/ctx-cli)](https://www.npmjs.com/package/@theo/ctx-cli) [![license](https://img.shields.io/npm/l/@theo/ctx-cli)](./LICENSE) [![node](https://img.shields.io/node/v/@theo/ctx-cli)](https://nodejs.org)
+[![npm version](https://img.shields.io/npm/v/@theo-chinomona/ctx-cli)](https://www.npmjs.com/package/@theo-chinomona/ctx-cli) [![npm downloads](https://img.shields.io/npm/dm/@theo-chinomona/ctx-cli)](https://www.npmjs.com/package/@theo-chinomona/ctx-cli) [![license](https://img.shields.io/npm/l/@theo-chinomona/ctx-cli)](./LICENSE) [![node](https://img.shields.io/node/v/@theo-chinomona/ctx-cli)](https://nodejs.org)
 
 Get up-to-date, version-specific library docs from your terminal. No MCP client needed.
 
@@ -19,8 +19,8 @@ Context7 has great docs data, but their MCP server only works inside Cursor and 
 ## Install
 
 ```bash
-npx @theo/ctx-cli                    # Run directly (no install)
-npm install -g @theo/ctx-cli          # Or install globally
+npx @theo-chinomona/ctx-cli                    # Run directly (no install)
+npm install -g @theo-chinomona/ctx-cli          # Or install globally
 ```
 
 ## Usage
